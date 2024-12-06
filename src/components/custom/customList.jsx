@@ -11,25 +11,25 @@ import SpaIcon from '@mui/icons-material/Spa';
 import { generateSubtitle } from '../../utils/action';
 import { useAppContext } from '../../Context';
 
-const CustomList = ({items, ...props}) => {
+const CustomList = ({ items, ...props }) => {
     const navigate = useNavigate();
     const { translate } = useAppContext();
 
     const getIcon = (typeAction) => {
         switch (typeAction) {
-        case 1:
-            return <CribIcon/>;
-        case 2:
-            return <RestaurantMenuIcon/>;
-        case 3:
-            return <SpaIcon/>;
-        default:
-            return <RestaurantMenuIcon/>;
+            case 1:
+                return <CribIcon />;
+            case 2:
+                return <RestaurantMenuIcon />;
+            case 3:
+                return <SpaIcon />;
+            default:
+                return <RestaurantMenuIcon />;
         }
     }
 
     const actionTypeListToInt = {
-        1 : "sleep",
+        1: "sleep",
         2: "eat",
         3: "diaper",
     }
@@ -42,28 +42,46 @@ const CustomList = ({items, ...props}) => {
 
     return (
         <List {...props}>
-        {
-            items.map((item, index) => {
+            {items.map((item) => {
                 const typeStr = actionTypeListToInt[item.action_type];
-                return <ListItem  sx={{
-                                    backgroundColor: "#fff",
-                                    borderRadius: "60px",
-                                    marginTop: '1em'
+                return (
+                    <ListItem
+                        key={item.id || `${item.action_type}-${item.timestamp}`} // Adicionada key única
+                        sx={{
+                            backgroundColor: "#fff",
+                            borderRadius: "60px",
+                            marginTop: '1em',
+                            cursor: 'pointer',
+                            '&:hover': {
+                                backgroundColor: '#f5f5f5',
+                                transition: 'background-color 0.3s'
+                            }
+                        }}
+                        onClick={() => navigate(`/${item.action_type}/${item.id}`)}
+                    >
+                        <ListItemAvatar>
+                            <Avatar
+                                sx={{
+                                    bgcolor: typeColor[item.action_type],
+                                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
                                 }}
-                                id={`new-item-list-${index}`}
-                                onClick={() => navigate(`/${item.action_type}/${item.id}`)}
-                        >
-                            <ListItemAvatar>
-                                <Avatar
-                                sx={{ bgcolor: typeColor[item.action_type] }}
-                                >
-                                    {getIcon(item.action_type)}
-                                </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText primary={translate(typeStr)} secondary={generateSubtitle(item, translate)} />
-                        </ListItem>
-            })
-        }
+                            >
+                                {getIcon(item.action_type)}
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary={translate(typeStr)}
+                            secondary={generateSubtitle(item, translate)}
+                            primaryTypographyProps={{
+                                fontWeight: 500
+                            }}
+                            secondaryTypographyProps={{
+                                color: 'text.secondary'
+                            }}
+                        />
+                    </ListItem>
+                );
+            })}
         </List>
     );
 }
