@@ -1,9 +1,10 @@
+import { redirect } from "react-router-dom";
 import usersData from './users.json';
 
 const isAuthenticated = () => {
     const session = localStorage.getItem("session");
     if (session) {
-        return redirect("/");
+        throw redirect("/");
     }
     return null;
 }
@@ -11,7 +12,7 @@ const isAuthenticated = () => {
 const handleVerificationProtected = () => {
     const session = localStorage.getItem("session");
     if (!session) {
-        return redirect("/signin");
+        throw redirect("/signin");
     }
     return null;
 }
@@ -54,7 +55,6 @@ const signUp = async (email, password) => {
             name: email.split('@')[0]
         };
 
-        
         return {
             data: {
                 email: newUser.email,
@@ -70,7 +70,7 @@ const signUp = async (email, password) => {
 
 const signOut = () => {
     localStorage.removeItem("session");
-    window.location.href = "/signin";
+    return redirect("/signin");
 }
 
 export {

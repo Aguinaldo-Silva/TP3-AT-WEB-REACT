@@ -2,7 +2,6 @@ import { useAppContext } from "../Context";
 import { AppBar, Grid } from "../components";
 import { FormControl, InputLabel, MenuItem, Select, Paper, TextField, Button } from '@mui/material';
 import { useState, useEffect } from 'react';
-import { signOut } from "../services/authentication";
 import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
@@ -41,7 +40,8 @@ const Settings = () => {
     };
 
     const handleLogout = () => {
-        signOut();
+        localStorage.removeItem("session");
+        navigate("/signin");
     };
 
     return (
