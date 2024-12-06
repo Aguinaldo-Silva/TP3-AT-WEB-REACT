@@ -1,7 +1,7 @@
 import { redirect } from "react-router-dom";
 import usersData from './users.json';
 
-const isAuthenticated = () => {
+const isAuthenticated = async () => {
     const session = localStorage.getItem("session");
     if (session) {
         throw redirect("/");
@@ -9,7 +9,7 @@ const isAuthenticated = () => {
     return null;
 }
 
-const handleVerificationProtected = () => {
+const handleVerificationProtected = async () => {
     const session = localStorage.getItem("session");
     if (!session) {
         throw redirect("/signin");
@@ -70,7 +70,6 @@ const signUp = async (email, password) => {
 
 const signOut = () => {
     localStorage.removeItem("session");
-    return redirect("/signin");
 }
 
 export {

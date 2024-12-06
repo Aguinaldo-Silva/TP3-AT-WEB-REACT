@@ -3,10 +3,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
-import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
 import { IconButton, Box } from '@mui/material';
-import { signOut } from '../../services/authentication'; 
 
 const AppBarComponent = ({ title, id, onDelete }) => {
     const navigate = useNavigate();
@@ -66,21 +64,6 @@ const AppBarComponent = ({ title, id, onDelete }) => {
                         </IconButton>
                     </Box>
                 )}
-
-                <IconButton
-                    size="large"
-                    edge="end"
-                    color="inherit"
-                    aria-label="sign out"
-                    onClick={signOut} 
-                    sx={{
-                        position: 'relative',
-                        zIndex: 2,
-                        marginLeft: 'auto'
-                    }}
-                >
-                    <LogoutIcon /> 
-                </IconButton>
             </Toolbar>
         </AppBar>
     );
