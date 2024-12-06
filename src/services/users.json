@@ -1,0 +1,14 @@
+{
+    "users": [
+        {
+            "email": "aguinaldo@al.infnet.edu.br",
+            "password": "123456",
+            "name": "Administrador"
+        },
+        {
+            "email": "teste@teste.com",
+            "password": "123456",
+            "name": "Usuário Teste"
+        }
+    ]
+}
